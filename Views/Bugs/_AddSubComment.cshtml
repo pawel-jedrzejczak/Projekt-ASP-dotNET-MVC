@@ -1,0 +1,20 @@
+﻿@model SubComment
+
+<form asp-controller="Bugs" asp-action="AddSubComment" method="post">
+    <input type="hidden" asp-for="CommentId" value="@Model.CommentId" />
+    <input type="hidden" asp-for="Comment" value="@Model.Comment" />
+    <input type="hidden" asp-for="AuthorId" value="@User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Add Comment</button>
+</form>

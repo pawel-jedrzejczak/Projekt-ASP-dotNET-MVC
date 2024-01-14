@@ -1,0 +1,60 @@
+﻿@model Bug
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+<h2>Szczegóły Zgłoszenia lub Błędu</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        
+        <dt class="col-sm-2">Tytuł</dt>
+        <dd class="col-sm-10">@Model.Title</dd>
+        
+        <dt class="col-sm-2">Opis</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+    </dl>
+    <h3>Comments</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Autor
+                </th>
+                <th>
+                    Tytuł
+                </th>
+                <th>
+                    Komentarz
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @await UserManager.FindByIdAsync(item.AuthorId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        <a asp-action="CommentDetails" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="DeleteComment" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h3>Add Comment</h3>
+    <partial name="_AddComment" model="@new Comment { BugId = Model.Id}" />
+</div>
+
+<p>
+    <a asp-action="Bugs">Powrót do listy</a>
+</p>

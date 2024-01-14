@@ -1,0 +1,14 @@
+﻿@model SubComment
+
+<h2>Potwierdź Usunięcie</h2>
+
+<p>Czy na pewno chcesz komentarz o tytule: <strong>@Model.Title</strong>?</p>
+
+<form asp-action="DeleteSubComment" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger">Usuń</button>
+        <a asp-action="Bugs" class="btn btn-secondary">Anuluj</a>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+﻿<h2>Strona Główna</h2>
+
+<p>Witaj na stronie głównej!</p>
+
+<div>
+    <h4>Panele:</h4>
+    <ul>
+        @if(@User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value == "Administrator"){
+        <li><a asp-action="AdminPanel">Panel Administratora</a></li>
+        }
+        <li><a asp-action="UserPanel">Panel Użytkownika</a></li>
+    </ul>
+</div>

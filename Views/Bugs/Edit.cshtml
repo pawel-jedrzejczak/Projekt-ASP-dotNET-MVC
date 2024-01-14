@@ -1,0 +1,29 @@
+﻿@model Bug
+
+<h2>Edytuj Zgłoszenie lub Błąd</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="AuthorId" />
+    <input type="hidden" asp-for="ApplicationUserId" />
+    
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    @Html.DropDownListFor(model => model.Status, new SelectList(new List<string> { "Open", "In Progress", "Closed" }), new { @class = "form-control" })
+    @Html.ValidationMessageFor(model=> model.Status, "", new { @class = "text-danger" })
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+    </div>
+</form>
